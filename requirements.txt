@@ -1,0 +1,1 @@
+Django>=5.2,<6.0\ngunicorn>=23.0.0\nwhitenoise>=6.9.0\n
