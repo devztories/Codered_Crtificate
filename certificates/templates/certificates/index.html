@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CodeRed Invention | Certificate Generator</title>
+<style>
+@font-face{font-family:Poppins;font-weight:400;font-display:swap;src:url(/static/assets/fonts/poppins-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:Poppins;font-weight:500;font-display:swap;src:url(/static/assets/fonts/poppins-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:Poppins;font-weight:600;font-display:swap;src:url(/static/assets/fonts/poppins-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:Poppins;font-weight:700;font-display:swap;src:url(/static/assets/fonts/poppins-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:Playball;font-weight:400;font-display:swap;src:url(/static/assets/fonts/playball-latin-400-normal.woff2) format('woff2')}
+:root{--bg:#f6f4f2;--card:#fff;--tx:#1d1b1a;--mu:#6b6560;--bd:#e2dcd7;--ac:#d90429;--ac-tx:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141211;--card:#1f1c1b;--tx:#f1ece8;--mu:#a39b95;--bd:#34302e;--ac:#e5383b}}
+:root[data-theme="dark"]{--bg:#141211;--card:#1f1c1b;--tx:#f1ece8;--mu:#a39b95;--bd:#34302e;--ac:#e5383b}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+h1{font-size:20px;margin:0 0 4px}.sub{color:var(--mu);font-size:14px;margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px}
+.grid{display:grid;grid-template-columns:380px 1fr;gap:16px;align-items:start}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:13px;color:var(--mu);margin:12px 0 4px}
+input[type=text],input[type=password],input[type=date],textarea,select{width:100%;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit;font-size:15px}
+textarea{min-height:90px;resize:vertical}
+input[type=file]{width:100%;font-size:13px;color:var(--tx)}
+input[type=range]{width:100%}
+.row{display:flex;align-items:center;gap:8px;font-size:13px;margin-top:10px}
+button{background:var(--ac);color:var(--ac-tx);border:0;border-radius:8px;padding:11px 14px;font-size:15px;cursor:pointer;font-weight:600}
+button.alt{background:transparent;color:var(--tx);border:1px solid var(--bd)}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+canvas{width:100%;height:auto;border:1px solid var(--bd);border-radius:8px;background:#fff;display:block}
+.err{color:var(--ac);font-size:13px;min-height:18px;margin-top:8px}
+.hint{font-size:12px;color:var(--mu);margin-top:4px}
+details{margin-top:14px;border-top:1px solid var(--bd);padding-top:8px}summary{cursor:pointer;font-size:14px;font-weight:600}
+.hide{display:none}
+.sticky{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div id="app">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px"><div><h1>CodeRed Invention</h1><p class="sub" style="margin:0">Public Certificate Generator</p></div></div>
+  <h1>Certificate Generator</h1>
+  <p class="sub">Details maattumbol certificate live aayi update aavum. Ready aayal HD download cheyyaam.</p>
+  <div class="grid">
+    <div class="card">
+      <label for="name">Student name</label><input type="text" id="name" value="Student Name">
+      <label for="proj">Project title</label><input type="text" id="proj" value="Project Title">
+      <label for="date">Date of issue</label><input type="date" id="date">
+      <label for="cid">Certificate ID</label><input type="text" id="cid" value="CRI-PRJ-000001">
+      <label for="coid">Company ID</label><input type="text" id="coid" value="CRI/2026/0145">
+
+      <label for="sig">Mentor signature (PNG / JPG)</label>
+      <input type="file" id="sig" accept="image/*">
+      <div class="row"><input type="checkbox" id="rmbg" checked><span>White background remove cheyyuka (transparent PNG aanenkil ith venda)</span></div>
+      <label>Signature size</label><input type="range" id="ss" min="40" max="160" value="100">
+      <label>Signature left / right</label><input type="range" id="sx" min="-60" max="60" value="0">
+      <label>Signature up / down</label><input type="range" id="sy" min="-30" max="40" value="0">
+
+      <details>
+        <summary>Matte texts edit cheyyuka</summary>
+        <label for="t1">Top line</label><input type="text" id="t1" value="THIS IS TO CERTIFY THAT">
+        <label for="t2">Line before project</label><input type="text" id="t2" value="has successfully completed the project titled">
+        <label for="t3">Paragraph</label>
+        <textarea id="t3">at CodeRed Invention, as part of the academic / professional project program. The project was carried out with dedication, technical proficiency, and a commendable level of problem-solving and implementation skills.</textarea>
+        <label for="t4">Closing line</label><input type="text" id="t4" value="We wish you continued success in your future endeavors.">
+        <label for="mt">Mentor title (below signature)</label><input type="text" id="mt" value="PROJECT MENTOR">
+        <label for="web">Website</label><input type="text" id="web" value="www.coderedinvention.com">
+        <label for="loc">Location</label><input type="text" id="loc" value="Kochi, Kerala, India">
+        <label for="vurl">QR verify link (Certificate ID end-il add aavum)</label>
+        <input type="text" id="vurl" value="https://www.coderedinvention.com/verify/">
+      </details>
+
+      <label for="q">Download quality</label>
+      <select id="q"><option value="2">HD (2110 × 2982)</option><option value="3" selected>Ultra HD (3165 × 4473)</option></select>
+      <div class="btns"><button id="dpdf">Download PDF</button><button id="dpng" class="alt">Download PNG</button></div>
+      <div class="err" id="derr"></div>
+    </div>
+    <div class="card sticky"><canvas id="cv"></canvas></div>
+  </div>
+</div>
+</div>
+
+<script src="{% static 'assets/template.js' %}"></script>
+<script src="{% static 'assets/lib/jspdf.umd.min.js' %}"></script>
+<script src="{% static 'assets/lib/qrcode.js' %}"></script>
+<script>
+var TW = 1055, TH = 1491;
+var $ = function(id){ return document.getElementById(id); };
+var tpl = new Image(), sigImg = null, sigCan = null;
+tpl.onload = function(){ draw(); };
+tpl.src = TPL_SRC;
+$("date").value = new Date().toISOString().slice(0,10);
+
+
+function buildSig(){
+  if (!sigImg){ sigCan = null; return; }
+  var t = document.createElement("canvas"); t.width = sigImg.naturalWidth; t.height = sigImg.naturalHeight;
+  var x = t.getContext("2d"); x.drawImage(sigImg, 0, 0);
+  if ($("rmbg").checked){
+    var d = x.getImageData(0, 0, t.width, t.height), p = d.data;
+    for (var i = 0; i < p.length; i += 4){
+      var m = Math.min(p[i], p[i+1], p[i+2]);
+      if (m > 215) p[i+3] = 0; else if (m > 150) p[i+3] = Math.round(p[i+3] * (215 - m) / 65);
+    }
+    x.putImageData(d, 0, 0);
+  }
+  // crop to ink bounds so it sits exactly on the line
+  var d2 = x.getImageData(0, 0, t.width, t.height), q = d2.data, x0 = t.width, y0 = t.height, x1 = 0, y1 = 0;
+  for (var yy = 0; yy < t.height; yy++) for (var xx = 0; xx < t.width; xx++){
+    if (q[(yy*t.width+xx)*4+3] > 20){ if (xx<x0)x0=xx; if (xx>x1)x1=xx; if (yy<y0)y0=yy; if (yy>y1)y1=yy; }
+  }
+  if (x1 > x0 && y1 > y0){
+    var o = document.createElement("canvas"); o.width = x1-x0+1; o.height = y1-y0+1;
+    o.getContext("2d").drawImage(t, x0, y0, o.width, o.height, 0, 0, o.width, o.height); t = o;
+  }
+  sigCan = t;
+}
+function setSig(src, save){
+  var i = new Image();
+  i.onload = function(){ sigImg = i; buildSig(); draw(); };
+  i.src = src;
+  if (save){ try { localStorage.setItem("cri_sig", src); } catch(e){} }
+}
+function loadSaved(){
+  try {
+    var s = localStorage.getItem("cri_sig");
+    if (s) setSig(s, false);
+    else setSig("{% static 'images/devadathan-signature.png' %}", false);
+  } catch(e) { setSig("{% static 'images/devadathan-signature.png' %}", false); }
+}
+loadSaved();
+$("sig").onchange = function(e){
+  var f = e.target.files[0]; if (!f) return;
+  var r = new FileReader(); r.onload = function(){ setSig(r.result, true); }; r.readAsDataURL(f);
+};
+$("rmbg").onchange = function(){ buildSig(); draw(); };
+["name","proj","date","cid","coid","ss","sx","sy","t1","t2","t3","t4","mt","web","loc","vurl"].forEach(function(id){ $(id).addEventListener("input", draw); });
+if (document.fonts) document.fonts.ready.then(draw);
+["400 24px Poppins","500 24px Poppins","600 24px Poppins","700 30px Poppins","400 100px Playball"].forEach(function(f){ if (document.fonts) document.fonts.load(f).then(draw); });
+
+function T(c, s, x, y, font, col, al, ls){
+  c.font = font; c.fillStyle = col; c.textAlign = al || "center";
+  if ("letterSpacing" in c) c.letterSpacing = (ls || 0) + "px";
+  c.fillText(s, x, y);
+  if ("letterSpacing" in c) c.letterSpacing = "0px";
+}
+function wrap(c, text, maxW){
+  var out = [];
+  text.split("\n").forEach(function(par){
+    var words = par.split(/\s+/), line = "";
+    words.forEach(function(w){
+      var t = line ? line + " " + w : w;
+      if (c.measureText(t).width > maxW && line){ out.push(line); line = w; } else line = t;
+    });
+    out.push(line);
+  });
+  return out;
+}
+function fmtDate(v){
+  if (!v) return "";
+  return new Date(v + "T00:00:00").toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
+}
+function render(cv, S){
+  cv.width = TW * S; cv.height = TH * S;
+  var c = cv.getContext("2d");
+  c.imageSmoothingEnabled = true; c.imageSmoothingQuality = "high";
+  c.scale(S, S);
+  c.fillStyle = "#fff"; c.fillRect(0, 0, TW, TH);
+  if (tpl.complete && tpl.naturalWidth) c.drawImage(tpl, 0, 0, TW, TH);
+  var DK = "#161616", CX = 527.5, F = "Poppins, Arial, sans-serif";
+
+  T(c, $("t1").value, CX, 569, "400 29px " + F, DK);
+  var nm = $("name").value, sz = 104;
+  do { c.font = sz + "px Playball, 'Brush Script MT', cursive"; sz -= 2; } while (c.measureText(nm).width > 880 && sz > 30);
+  T(c, nm, CX, 658, c.font, "#e10c1a");
+  T(c, $("t2").value, CX, 720, "400 27px " + F, DK);
+  var pj = $("proj").value; sz = 32;
+  do { c.font = "700 " + sz + "px " + F; sz -= 1; } while (c.measureText(pj).width > 900 && sz > 14);
+  T(c, pj, CX, 765, c.font, DK);
+
+  c.font = "400 23px " + F;
+  var lines = wrap(c, $("t3").value, 930), ly = 805, lh = 33;
+  lines.forEach(function(l, i){ T(c, l, CX, ly + i*lh, "400 23px " + F, DK); });
+  var cy = Math.max(919, ly + lines.length*lh + 38);
+  T(c, $("t4").value, CX, cy, "400 25px " + F, DK);
+
+  T(c, fmtDate($("date").value), 202, 1016, "700 27px " + F, DK);
+
+  if (sigCan){
+    var sc = +$("ss").value / 100, bw = 270 * sc, bh = 85 * sc;
+    var k = Math.min(bw / sigCan.width, bh / sigCan.height), w = sigCan.width * k, h = sigCan.height * k;
+    c.drawImage(sigCan, 862 + +$("sx").value - w/2, 1046 + +$("sy").value - h, w, h);
+  }
+  T(c, $("mt").value, 862, 1087, "500 19px " + F, DK, "center", 3);
+
+  T(c, $("cid").value, 499, 1231, "400 24px " + F, DK, "left");
+  T(c, $("coid").value, 499, 1273, "400 24px " + F, DK, "left");
+
+  T(c, $("web").value, 110, 1431, "400 23px " + F, DK, "left");
+  T(c, $("loc").value, 482, 1431, "400 23px " + F, DK, "left");
+
+  try {
+    var qr = qrcode(0, "M"); qr.addData($("vurl").value + $("cid").value); qr.make();
+    var n = qr.getModuleCount(), qs = 124, m = qs / n, qx = 72, qy = 1189;
+    c.fillStyle = "#000";
+    for (var r = 0; r < n; r++) for (var col = 0; col < n; col++)
+      if (qr.isDark(r, col)) c.fillRect(qx + col*m, qy + r*m, m + 0.4, m + 0.4);
+  } catch(e){}
+}
+var cv = $("cv");
+function draw(){ render(cv, 2); }
+
+function fname(ext){ return ($("cid").value + "_" + $("name").value).replace(/[^\w\-]+/g, "_") + "." + ext; }
+async function save(blob, ext){
+  var dl = null;
+  try { dl = await claude.use("downloads"); } catch(e){}
+  try {
+    if (dl) await dl.save({ filename: fname(ext), data: blob });
+    else {
+      var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = fname(ext);
+      document.body.appendChild(a); a.click(); a.remove();
+    }
+    $("derr").textContent = "";
+  } catch(e){
+    if (e && e.code === "declined") return;
+    $("derr").textContent = "Download failed: " + ((e && e.message) || "unavailable");
+  }
+}
+function exportCanvas(){ var o = document.createElement("canvas"); render(o, +$("q").value); return o; }
+$("dpng").onclick = function(){ exportCanvas().toBlob(function(b){ save(b, "png"); }, "image/png"); };
+$("dpdf").onclick = function(){
+  var J = window.jspdf && window.jspdf.jsPDF;
+  if (!J){ $("derr").textContent = "PDF library load aayilla."; return; }
+  var o = exportCanvas();
+  var pdf = new J({ orientation: "portrait", unit: "mm", format: "a4" });
+  pdf.addImage(o.toDataURL("image/jpeg", 0.97), "JPEG", 0, 0, 210, 297);
+  save(pdf.output("blob"), "pdf");
+};
+</script>
+</body>
+</html>
